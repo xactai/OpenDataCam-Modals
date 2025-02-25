@@ -32,11 +32,11 @@ module.exports = {
       var yoloParams = config.NEURAL_NETWORK_PARAMS[config.NEURAL_NETWORK];
       var videoParams = videoParams || config.VIDEO_INPUTS_PARAMS[config.VIDEO_INPUT];
       YOLO.currentVideoParams = videoParams
-      var fps = parseFloat(config.VIDEO_INPUTS_PARAMS.fps)
+      var DFR = parseFloat(config.VIDEO_INPUTS_PARAMS.DFR)
 
       var darknetCommand = [];
       var initialCommand = ['./darknet','detector','demo', yoloParams.data , yoloParams.cfg, yoloParams.weights]
-      var endCommand = ['-ext_output','-dont_show', '-dontdraw_bbox','-json_port', configHelper.getJsonStreamPort() , '-mjpeg_port', configHelper.getMjpegStreamPort(),'-fps', fps];
+      var endCommand = ['-ext_output','-dont_show', '-dontdraw_bbox','-json_port', configHelper.getJsonStreamPort() , '-mjpeg_port', configHelper.getMjpegStreamPort(),'-dfr', DFR];
 
       // Special case if input camera is specified as a -c flag as we need to add one arg
       if(videoParams.indexOf('-c') === 0) {

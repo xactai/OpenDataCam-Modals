@@ -374,13 +374,16 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
                 free_image(det_s);
             }
 
+            if (desired_dfr != -1) { 
               double Finished_time = get_wall_time();
               float elapsed_time = ( Finished_time - capture_time_1) * 1000.0f; // Convert to milliseconds
+              float target_frame_time = 1000.0f / desired_dfr;
               float sleep_time = target_frame_time - elapsed_time;
+
               if (sleep_time > 0) {
               usleep((int)(sleep_time * 1000)); 
                }
-
+            }
             if (time_limit_sec > 0 && (get_time_point() - start_time_lim)/1000000 > time_limit_sec) {
                 printf(" start_time_lim = %f, get_time_point() = %f, time spent = %f \n", start_time_lim, get_time_point(), get_time_point() - start_time_lim);
                 break;

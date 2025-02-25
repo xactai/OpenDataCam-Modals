@@ -2018,8 +2018,13 @@ void run_detector(int argc, char **argv)
         if (strlen(weights) > 0)
             if (weights[strlen(weights) - 1] == 0x0d) weights[strlen(weights) - 1] = 0;
     char *filename = (argc > 6) ? argv[6] : 0;
-    char *desired_fps = find_char_arg(argc,argv,"-fps", NULL);
-    double fps_value = (desired_fps != NULL) ? atof(desired_fps) : 30.0;
+    char *desired_dfr_str = find_char_arg(argc, argv,"-dfr", NULL);
+    double desired_dfr = (desired_dfr_str != NULL) ? atof(desired_dfr_str) : -1.0;
+
+    if (desired_dfr < -1) {
+        printf("Error: FPS value should be -1 or greater!\n");
+        exit(-1);
+    }
     if (0 == strcmp(argv[2], "test")) test_detector(datacfg, cfg, weights, filename, thresh, hier_thresh, dont_show, ext_output, save_labels, outfile, letter_box, benchmark_layers);
     else if (0 == strcmp(argv[2], "train")) train_detector(datacfg, cfg, weights, gpus, ngpus, clear, dont_show, calc_map, thresh, iou_thresh, mjpeg_port, show_imgs, benchmark_layers, chart_path, mAP_epochs);
     else if (0 == strcmp(argv[2], "valid")) validate_detector(datacfg, cfg, weights, outfile);
@@ -2039,7 +2044,7 @@ void run_detector(int argc, char **argv)
             if (strlen(filename) > 0)
                 if (filename[strlen(filename) - 1] == 0x0d) filename[strlen(filename) - 1] = 0;
         demo(cfg, weights, thresh, hier_thresh, cam_index, filename, names, classes, avgframes, frame_skip, prefix, out_filename,
-            mjpeg_port, dontdraw_bbox, json_port, dont_show, ext_output, letter_box, time_limit_sec, http_post_host, benchmark, benchmark_layers, json_file_output,fps_value);
+            mjpeg_port, dontdraw_bbox, json_port, dont_show, ext_output, letter_box, time_limit_sec, http_post_host, benchmark, benchmark_layers, json_file_output,desired_dfr);
 
         free_list_contents_kvp(options);
         free_list(options);

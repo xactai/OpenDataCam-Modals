@@ -408,12 +408,18 @@ void run_coco(int argc, char **argv)
     char *cfg = argv[3];
     char *weights = (argc > 4) ? argv[4] : 0;
     char *filename = (argc > 5) ? argv[5]: 0;
-    char *desired_fps = find_char_arg(argc,argv,"-fps", NULL);
-    double fps_value = (desired_fps != NULL) ? atof(desired_fps) : 30.0;
+    char *desired_dfr_str = find_char_arg(argc,argv,"-dfr", NULL);
+    double desired_dfr = (desired_dfr_str != NULL) ? atof(desired_dfr_str) : -1.0;
+
+    if (desired_dfr < -1) {
+        printf("Error: FPS value should be -1 or greater!\n");
+        exit(-1);
+    }
+    
     if(0==strcmp(argv[2], "test")) test_coco(cfg, weights, filename, thresh);
     else if(0==strcmp(argv[2], "train")) train_coco(cfg, weights);
     else if(0==strcmp(argv[2], "valid")) validate_coco(cfg, weights);
     else if(0==strcmp(argv[2], "recall")) validate_coco_recall(cfg, weights);
     else if(0==strcmp(argv[2], "demo")) demo(cfg, weights, thresh, hier_thresh, cam_index, filename, coco_classes, 80, 1, frame_skip,
-        prefix, out_filename, mjpeg_port, 0, json_port, dont_show, ext_output, 0, 0, 0, 0, 0, json_file_output,fps_value);
+        prefix, out_filename, mjpeg_port, 0, json_port, dont_show, ext_output, 0, 0, 0, 0, 0, json_file_output,desired_dfr);
 }
