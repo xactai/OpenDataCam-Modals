@@ -142,7 +142,7 @@ double get_wall_time()
 
 void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int cam_index, const char *filename, char **names, int classes, int avgframes,
     int frame_skip, char *prefix, char *out_filename, int mjpeg_port, int dontdraw_bbox, int json_port, int dont_show, int ext_output, int letter_box_in, int time_limit_sec, char *http_post_host,
-    int benchmark, int benchmark_layers, char *json_file_output,double desired_fps)
+    int benchmark, int benchmark_layers, char *json_file_output,double desired_dfr)
 {
     if (avgframes < 1) avgframes = 1;
     avg_frames = avgframes;
@@ -268,7 +268,7 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
     float avg_fps = 0;
     int frame_counter = 0;
     int global_frame_counter = 0;
-    const float target_frame_time = 1000.0f / desired_fps; // in milliseconds
+    const float target_frame_time = 1000.0f / desired_dfr; // in milliseconds
 
     while(1){
         double capture_time_1= get_wall_time(); // Start timing
