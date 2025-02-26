@@ -409,7 +409,7 @@ void run_coco(int argc, char **argv)
     char *weights = (argc > 4) ? argv[4] : 0;
     char *filename = (argc > 5) ? argv[5]: 0;
     char *desired_dfr_str = find_char_arg(argc,argv,"-dfr", NULL);
-    double desired_dfr = (desired_dfr_str != NULL) ? atof(desired_dfr_str) : -1.0;
+    double desired_dfr = (desired_dfr_str != NULL) ? atof(desired_dfr_str) : 30.0;
 
     if (desired_dfr < -1) {
         printf("Error: FPS value should be -1 or greater!\n");

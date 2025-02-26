@@ -2019,7 +2019,7 @@ void run_detector(int argc, char **argv)
             if (weights[strlen(weights) - 1] == 0x0d) weights[strlen(weights) - 1] = 0;
     char *filename = (argc > 6) ? argv[6] : 0;
     char *desired_dfr_str = find_char_arg(argc, argv,"-dfr", NULL);
-    double desired_dfr = (desired_dfr_str != NULL) ? atof(desired_dfr_str) : -1.0;
+    double desired_dfr = (desired_dfr_str != NULL) ? atof(desired_dfr_str) : 30.0;
 
     if (desired_dfr < -1) {
         printf("Error: FPS value should be -1 or greater!\n");
