@@ -295,7 +295,8 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
             printf("Objects:\n\n");
 
             ++frame_id;
-            if (demo_json_port > 0) {
+            //if (demo_json_port > 0) {
+            if (desired_dfr != 0 && demo_json_port > 0) {
                 int timeout = 400000;
                 send_json(local_dets, local_nboxes, l.classes, demo_names, frame_id, demo_json_port, timeout);
             }
@@ -326,7 +327,8 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
 
             printf("\nFPS:%.1f \t AVG_FPS:%.1f\n", fps, avg_fps);
 
-            if(!prefix){
+           // if(!prefix){
+            if (desired_dfr != 0 && !dont_show) {
                 if (!dont_show) {
                     const int each_frame = max_val_cmp(1, avg_fps / 60);
                     if(global_frame_counter % each_frame == 0) show_image_mat(show_img, "Demo");
@@ -349,7 +351,8 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
             }
 
             // if you run it with param -mjpeg_port 8090  then open URL in your web-browser: http://localhost:8090
-            if (mjpeg_port > 0 && show_img) {
+            //if (mjpeg_port > 0 && show_img) {
+            if (desired_dfr != 0 && mjpeg_port > 0 && show_img) {
                 int port = mjpeg_port;
                 int timeout = 400000;
                 int jpeg_quality = 40;    // 1 - 100
@@ -398,6 +401,7 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
             det_img = in_img;
             det_s = in_s;
         }
+    }
         --delay;
         if(delay < 0){
             delay = frame_skip;
