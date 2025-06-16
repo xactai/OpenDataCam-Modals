@@ -274,6 +274,7 @@ void demo(char *cfgfile, char *weightfile, float thresh, float hier_thresh, int 
         double capture_time_1= get_wall_time(); // Start timing
         ++count;
         {
+            if (desired_dfr != 0) {
             const float nms = .45;    // 0.4F
             int local_nboxes = nboxes;
             detection *local_dets = dets;
