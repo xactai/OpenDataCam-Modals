@@ -2025,6 +2025,10 @@ void run_detector(int argc, char **argv)
         printf("Error: FPS value should be -1 or greater!\n");
         exit(-1);
     }
+    if (desired_dfr == 0) {
+             fprintf(stderr, "Video stream: 1920 x 1080  \n");
+             fflush(stdout);
+    }
     if (0 == strcmp(argv[2], "test")) test_detector(datacfg, cfg, weights, filename, thresh, hier_thresh, dont_show, ext_output, save_labels, outfile, letter_box, benchmark_layers);
     else if (0 == strcmp(argv[2], "train")) train_detector(datacfg, cfg, weights, gpus, ngpus, clear, dont_show, calc_map, thresh, iou_thresh, mjpeg_port, show_imgs, benchmark_layers, chart_path, mAP_epochs);
     else if (0 == strcmp(argv[2], "valid")) validate_detector(datacfg, cfg, weights, outfile);

@@ -369,6 +369,10 @@ void run_yolo(int argc, char **argv)
         printf("Error: FPS value should be -1 or greater!\n");
         exit(-1);
     }
+    if (desired_dfr == 0) {
+             fprintf(stderr, "Video stream: 1920 x 1080  \n");
+             fflush(stdout);
+    }
     
     if(0==strcmp(argv[2], "test")) test_yolo(cfg, weights, filename, thresh);
     else if(0==strcmp(argv[2], "train")) train_yolo(cfg, weights);
