@@ -15,7 +15,22 @@ const DBManager = require('./server/db/DBManager')
 const FileSystemManager = require('./server/fs/FileSystemManager')
 const MjpegProxy = require('./server/utils/mjpegproxy').MjpegProxy;
 const intercept = require("intercept-stdout");
-const config = require('./config.json');
+const configLoader = require('./server/config');
+
+
+const args = process.argv.slice(2); // get all arguments after 'node server.js'
+const configFileArg = args[0];      // pick the first one
+console.log("configFileArg ",configFileArg);  
+
+let config;
+if(configFileArg) {
+    console.log(`Loading config file: ${configFileArg}`);
+    config = configLoader.loadConfig(configFileArg);
+} else {
+    console.log('No config file provided. Using default config.json');
+    config = require('./config.json');
+}
+
 const configHelper = require('./server/utils/configHelper')
 
 if(process.env.npm_package_version !== config.OPENDATACAM_VERSION) {

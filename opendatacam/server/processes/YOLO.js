@@ -1,5 +1,5 @@
 const forever = require('forever-monitor');
-const config = require('../../config.json');
+const configLoad = require('../../server/config');
 const simulation30FPSDetectionsData = require('../../public/static/placeholder/alexeydetections30FPS.json');
 const fs = require('fs');
 const path = require('path');
@@ -25,9 +25,18 @@ let YOLO = {
 
 module.exports = {
   init: function(simulationMode, videoParams = null) {
+    const args = process.argv.slice(2); // get all arguments after 'node server.js'
+const configFileArg = args[0];      // pick the first one 
+let config;
+if(configFileArg) {
+    console.log(`Loading config file: ${configFileArg}`);
+    config = configLoad.loadConfig(configFileArg);
+} else {
+    console.log('No config file provided. Using default config.json');
+    config = require('../../config.json');
+}
 
-    YOLO.simulationMode = simulationMode;
-
+    YOLO.simulationMode = simulationMode;  
     if(!YOLO.simulationMode) {
       var yoloParams = config.NEURAL_NETWORK_PARAMS[config.NEURAL_NETWORK];
       var videoParams = videoParams || config.VIDEO_INPUTS_PARAMS[config.VIDEO_INPUT];

@@ -27,7 +27,7 @@ const initialState = {
   indexLastFrameFPSComputed: 0,
   currentFrame: 0,
   countedItemsHistory: [],
-  videoResolution: null,
+  //videoResolution: "1920 x 1080",
   countingAreas: {},
   trackerDataForLastFrame: null,
   trackerDataBuffer: [],
@@ -617,6 +617,7 @@ module.exports = {
   },
 
   setVideoResolution(videoResolution) {
+
     var self = this;
     console.log('setvideoresolution')
     Opendatacam.videoResolution = videoResolution;
@@ -651,7 +652,7 @@ module.exports = {
 
     Logger.log('Send request to connect to YOLO JSON Stream')
     self.HTTPRequestListeningToYOLO = http.request(options, function(res) {
-      Logger.log(`statusCode: ${res.statusCode}`)
+
       var message = ""; // variable that collects chunks
       var separator = "}"; // consider chunk complete if I see this char
 
@@ -699,9 +700,12 @@ module.exports = {
           var detectionsOfThisFrame = null;
           try {
             Logger.log('Message complete, parse it')
-            if(message.charAt(0) === ',') {
+            if(message.charAt(0) == ',') {
               Logger.log('First char is a comma, remove it')
               message = message.substr(1);
+            }
+            if(message.startsWith("[")) {
+              message = message.slice(1)
             }
             detectionsOfThisFrame = JSON.parse(message);
             message = '';
