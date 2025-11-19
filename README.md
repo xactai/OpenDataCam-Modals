@@ -81,9 +81,9 @@ mongod --version
 sudo systemctl start mongod
 sudo systemctl enable mongod
 ```
- NOte: Before you have install these create a Directory first after you have to install
+ Note: Before you have install these create a Directory first after you have to install
 ```bash
-Mkdir <Directory name>
+mkdir <Directory name>
 cd <Directory name>
 git clone https://github.com/xactai/OpenDataCam-Modals.git
 cd opendatacam
@@ -241,5 +241,6 @@ Technical architecture overview:
 - Darknet fork + YOLOv4 by @alexeyab : [https://github.com/alexeyab/darknet](https://github.com/alexeyab/darknet)
 - IOU / V-IOU Tracker by @bochinski : [https://github.com/bochinski/iou-tracker/](https://github.com/bochinski/iou-tracker/)
 - Next.js by @zeit : [https://github.com/zeit/next.js](https://github.com/zeit/next.js)
+
 
 
